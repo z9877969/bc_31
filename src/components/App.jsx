@@ -1,21 +1,27 @@
 import React from "react";
-import HeaderQwe from "./Header/Header";
+import Header from "./Header/Header";
 import { Filter } from "./Filter/Filter";
 import ProductsList from "./ProductsList/ProductsList";
+import { GlobalStyle } from "../index.styled";
+
+const containerStyles = {
+  display: "flex",
+  justifyContent: "center",
+};
 
 const App = () => {
   return (
-    <div>
-      <HeaderQwe />
-      <Filter />
-      <ProductsList />
-    </div>
+    <>
+      
+      <div>
+        <Header />
+        <div style={containerStyles}>
+          <Filter />
+          <ProductsList />
+        </div>
+      </div>
+    </>
   );
-  // React.createElement(
-  //   "div",
-  //   null,
-  //   React.createElement("h1", { class: "app" }, "App")
-  // );
 };
 
 export default App;

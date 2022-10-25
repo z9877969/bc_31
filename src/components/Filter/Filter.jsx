@@ -1,34 +1,18 @@
-import './Filter.css';
+import { Item, List, Wrapper } from "./Filter.styled";
 
 export const Filter = () => {
   return (
-    <div className="filter">
-      <ul className="filter-list">
-        <li className="filter-item">
-          <input
-            className="filter-input"
-            name="filter"
-            value="apple"
-            type="checkbox"
-            id="apple"
-          />
-          <label className="filter-label" htmlFor="apple">
-            Apple
-          </label>
-        </li>
-        <li className="filter-item">
-          <input
-            className="filter-input"
-            name="filter"
-            value="xiaomi"
-            type="checkbox"
-            id="xiaomi"
-          />
-          <label className="filter-label" htmlFor="xiaomi">
-            Xiaomi
-          </label>
-        </li>
-        <li className="filter-item">
+    <Wrapper>
+      <List>
+        <Item>
+          <input name="filter" value="apple" type="checkbox" id="apple" />
+          <label htmlFor="apple">Apple</label>
+        </Item>
+        <Item>
+          <input name="filter" value="xiaomi" type="checkbox" id="xiaomi" />
+          <label htmlFor="xiaomi">Xiaomi</label>
+        </Item>
+        <Item>
           <input
             className="filter-input"
             name="filter"
@@ -39,8 +23,8 @@ export const Filter = () => {
           <label className="filter-label" htmlFor="samsung">
             Samsung
           </label>
-        </li>
-        <li className="filter-item">
+        </Item>
+        <Item className="filter-item">
           <input
             className="filter-input"
             name="filter"
@@ -51,8 +35,8 @@ export const Filter = () => {
           <label className="filter-label" htmlFor="zte">
             Zte
           </label>
-        </li>
-        <li className="filter-item">
+        </Item>
+        <Item className="filter-item">
           <input
             className="filter-input"
             name="filter"
@@ -63,8 +47,8 @@ export const Filter = () => {
           <label className="filter-label" htmlFor="huawei">
             Huawei
           </label>
-        </li>
-      </ul>
-    </div>
+        </Item>
+      </List>
+    </Wrapper>
   );
 };

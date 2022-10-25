@@ -6,7 +6,7 @@
     "currency": "UAH",
     "model": "iPhone 11",
     "type": "apple",
-    "action": false
+    "sale": false
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "currency": "UAH",
     "model": "iPhone 13",
     "type": "apple",
-    "action": true
+    "sale": true
   },
   {
     "id": 3,
@@ -23,7 +23,8 @@
     "price": "23999",
     "currency": "UAH",
     "model": "Samsung Galaxy S21",
-    "type": "samsung"
+    "type": "samsung",
+    "sale": true
   },
   {
     "id": 4,
@@ -31,7 +32,8 @@
     "price": "4999",
     "currency": "UAH",
     "model": "Xiaomi Redmi 9A",
-    "type": "xiaomi"
+    "type": "xiaomi",
+    "sale": true
   },
   {
     "id": 5,
@@ -39,7 +41,8 @@
     "price": "11999",
     "currency": "UAH",
     "model": "ZTE RedMagic",
-    "type": "zte"
+    "type": "zte",
+    "sale": false
   },
   {
     "id": 6,
@@ -47,7 +50,8 @@
     "price": "6999",
     "currency": "UAH",
     "model": "Samsung Galaxy A32",
-    "type": "samsung"
+    "type": "samsung",
+    "sale": false
   },
   {
     "id": 7,
@@ -55,7 +59,8 @@
     "price": "37999",
     "currency": "UAH",
     "model": "Samsung Galaxy S21",
-    "type": "samsung"
+    "type": "samsung",
+    "sale": false
   },
   {
     "id": 8,
@@ -63,7 +68,8 @@
     "price": "2799",
     "currency": "UAH",
     "model": "ZTE Blade A51",
-    "type": "zte"
+    "type": "zte",
+    "sale": false
   },
   {
     "id": 9,
@@ -71,7 +77,8 @@
     "price": "4999",
     "currency": "UAH",
     "model": "Huawei P Smart ",
-    "type": "huawei"
+    "type": "huawei",
+    "sale": false
   },
   {
     "id": 10,
@@ -79,7 +86,8 @@
     "price": "18499",
     "currency": "UAH",
     "model": "Apple iPhone 11 64GB",
-    "type": "apple"
+    "type": "apple",
+    "sale": false
   },
   {
     "id": 11,
@@ -87,7 +95,8 @@
     "price": "8888",
     "currency": "UAH",
     "model": "ZTE Nubia Play 5G",
-    "type": "zte"
+    "type": "zte",
+    "sale": false
   },
   {
     "id": 12,
@@ -95,6 +104,7 @@
     "price": "3899",
     "currency": "UAH",
     "model": "Xiaomi Redmi 9C",
-    "type": "zte"
+    "type": "zte",
+    "sale": false
   }
 ]
