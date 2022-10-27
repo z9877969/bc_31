@@ -1,24 +1,9 @@
+// counter
+1) events
+2) statefull vs stateless
+// shop
+3) open cart
+4) add product vulue
+5) add product to cart
 
-0) Install React devtools
-
-1) icons, ProductsListItems -> images -> defaultProps
-2) inline styles
-2) vanila css/scss
-3) modules css/sass, composes
-4) @import-normalize
-6) styled-component
-
-
-clsx(
-  "class-1",
-  "class-2",
-  condition-3 && "class-3",
-  condition-4 && "class-4"
-)
-
-clsx(
-  "alert",
-  variant,
-  "is-outlined": outlined,
-  "is-elevated": elevated
-)
+6) filter

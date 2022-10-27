@@ -12,7 +12,8 @@ import {
   BtnBuy,
 } from "./ProductsListItem.styled";
 
-const ProductsListItem = ({ url, price, model, currency, sale }) => {
+const ProductsListItem = ({ addToCart, ...product }) => {
+  const { url, price, model, currency, sale } = product;
   return (
     <Item>
       <ProductsImageWrapper>
@@ -27,7 +28,13 @@ const ProductsListItem = ({ url, price, model, currency, sale }) => {
         </Price>
         {price && <Currency>{currency}</Currency>}
       </ProductsDescr>
-      <BtnBuy type="button">Купити</BtnBuy>
+      <BtnBuy
+        onClick={(e) => addToCart(product)}
+        disabled={!price}
+        type="button"
+      >
+        Купити
+      </BtnBuy>
     </Item>
   );
 };
