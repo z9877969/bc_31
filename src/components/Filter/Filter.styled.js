@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   width: 200px;
   padding: 10px;
   background-color: green;
+  align-self: flex-start;
 `;
 
 export const List = styled.ul`

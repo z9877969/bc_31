@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import "./ProductsListItem.css";
 import {
   Currency,
   Item,
@@ -24,7 +23,11 @@ const ProductsListItem = ({ addToCart, ...product }) => {
         <ProductTitle>{model}</ProductTitle>
         {price && sale && <Price sale={sale}>{price}</Price>}
         <Price>
-          {sale ? Number(price) * 0.9 : price ? price : "Товар відсутній"}
+          {sale
+            ? (Number(price) * 0.9).toFixed(0)
+            : price
+            ? price
+            : "Товар відсутній"}
         </Price>
         {price && <Currency>{currency}</Currency>}
       </ProductsDescr>

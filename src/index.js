@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import { ThemeProvider } from "styled-components";
 import "modern-normalize/modern-normalize.css";
-import { GlobalStyle } from "./index.styled";
+import { GlobalStyle } from "./GlobalStyle";
 
 const theme = {
   colors: {

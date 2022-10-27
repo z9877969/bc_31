@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Item = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0;
   padding: 5px;
   background-color: #212121;
@@ -17,7 +20,7 @@ export const ProductsSale = styled.p`
   }}; // block
   position: absolute;
   right: -28px;
-  top: -8px;
+  top: 8px;
   transform: rotate(45deg);
   width: 100px;
   text-align: center;
@@ -56,11 +59,6 @@ export const Price = styled(DescrElement)`
       : "text-decoration: underline;"}
 `;
 
-// export const BeforeSalePrice = styled(Price)`
-//   text-decoration: line-through;
-//   color: grey;
-// `;
-
 export const Currency = styled(DescrElement)`
   font-weight: bold;
 `;
@@ -72,6 +70,7 @@ export const BtnBuy = styled.button`
   background-color: burlywood;
   color: rgb(58, 44, 44);
   border-radius: 3px;
+  margin-top: auto;
 
   &:active {
     transform: scale(0.95);

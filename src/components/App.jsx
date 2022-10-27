@@ -8,6 +8,9 @@ import Cart from "./Cart/Cart";
 const containerStyles = {
   display: "flex",
   justifyContent: "center",
+  padding: "15px",
+  paddingTop: 0,
+  backgroundColor: "antiquewhite",
 };
 
 class App extends Component {
