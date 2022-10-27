@@ -1,9 +1,4 @@
-// counter
-1) events
-2) statefull vs stateless
-// shop
-3) open cart
-4) add product vulue
-5) add product to cart
-
-6) filter
+## 1) controled input
+## 2) text, date, radio
+## 3) CRUD with collection
+## 4) filter by priority
