@@ -2,12 +2,43 @@ import { Component } from "react";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
 import { todo } from "../../data/todo";
+import Modal from "../Modal/Modal";
+import TodoListItem from "../TodoListItem/TodoListItem";
 
 class TodoPage extends Component {
   state = {
-    todo: todo,
+    todo: JSON.parse(localStorage.getItem("todo")) ?? todo, // [] | [{}, {}] | []
     filter: "all",
+    color: "red",
+    isOpen: false,
+    itemProps: null,
   };
+
+  static getDerivedStateFromProps(newProps, curState) {
+    // console.log("newProps :>> ", newProps);
+    // console.log("state :>> ", curState);
+    console.log("GDSFP_TodoPage");
+    if (newProps.isOpen === true) {
+      return { ...curState, color: "green" };
+    }
+    return { ...curState, color: "red" };
+  }
+
+  // componentDidMount() {
+  //   console.log("CDM_TodoPage");
+  //   const todoLS = JSON.parse(localStorage.getItem("todo")) ?? todo;
+  //   this.setState({ todo: todoLS });
+  // }
+
+  getSnapshotBeforeUpdate() {
+    return document.body.scrollHeight;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.todo !== this.state.todo) {
+      localStorage.setItem("todo", JSON.stringify(this.state.todo));
+    }
+  }
 
   addTodo = (newTodo) => {
     this.setState((prev) => ({ todo: [...prev.todo, newTodo] }));
@@ -18,7 +49,6 @@ class TodoPage extends Component {
   };
 
   updateStatus = (id) => {
-    console.log(id);
     this.setState((prev) => ({
       todo: prev.todo.map((el) =>
         el.id !== id ? el : { ...el, isDone: !el.isDone }
@@ -38,12 +68,26 @@ class TodoPage extends Component {
     return filteredTodo;
   };
 
+  setItemProps = (props) => {
+    this.setState({ itemProps: props, isOpen: true });
+  };
+
+  toggleIsOpen = () => {
+    this.setState((prev) => ({ isOpen: !prev.isOpen }));
+  };
+
   render() {
+    console.log("RENDER_TodoPage");
     const filteredTodo = this.filterTodo();
     return (
       <>
         <ToDoForm addTodo={this.addTodo} />
         <select
+          style={{
+            display: "block",
+            margin: "10px auto",
+            color: this.state.color,
+          }}
           name="filter"
           value={this.state.filter}
           onChange={this.handleChange}
@@ -58,8 +102,14 @@ class TodoPage extends Component {
             todo={filteredTodo}
             updateStatus={this.updateStatus}
             removeTodo={this.removeTodo}
+            setContent={this.props.setContent}
           />
         )}
+        {/* {this.state.isOpen && (
+          <Modal toggleIsOpen={this.toggleIsOpen}>
+            <TodoListItem {...this.state.itemProps} />
+          </Modal>
+        )} */}
       </>
     );
   }

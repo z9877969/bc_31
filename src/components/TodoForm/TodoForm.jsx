@@ -1,36 +1,7 @@
-import { Component } from "react";
+import { Component, PureComponent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import s from "./TodoForm.module.scss";
-
-console.log(moment().format("YYYY-MM-DD"));
-
-const radioOptions = [
-  {
-    id: "formRadioLow",
-    className: s.input,
-    type: "radio",
-    name: "priority",
-    value: "low",
-    title: "Low",
-  },
-  {
-    id: "formRadioMedium",
-    className: s.input,
-    type: "radio",
-    name: "priority",
-    value: "medium",
-    title: "Medium",
-  },
-  {
-    id: "formRadioHigh",
-    className: s.input,
-    type: "radio",
-    name: "priority",
-    value: "high",
-    title: "High",
-  },
-];
 
 const initialFormState = {
   date: moment().format("YYYY-MM-DD"),
@@ -38,8 +9,13 @@ const initialFormState = {
   priority: "",
 };
 
-class ToDoForm extends Component {
+class ToDoForm extends PureComponent {
   state = initialFormState;
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if(nextState === this.state) return false;
+  //   return true;
+  // }
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +25,6 @@ class ToDoForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.state);
     this.props.addTodo({ ...this.state, isDone: false, id: uuidv4() });
     this.reset();
   };
@@ -61,6 +36,7 @@ class ToDoForm extends Component {
   };
 
   render() {
+    // console.log("RENDER_TodoForm");
     return (
       <form className={s.form} onSubmit={this.handleSubmit}>
         <label className={s.label}>
@@ -140,20 +116,3 @@ class ToDoForm extends Component {
 }
 
 export default ToDoForm;
-
-// {radioOptions.map((el) => (
-//   <div className={s.radioWrapper}>
-//     <input
-//       id={el.id}
-//       className={el.className}
-//       type={el.type}
-//       name={el.name}
-//       value={el.value}
-//       checked={this.state.priority === el.value}
-//       onChange={this.handleChange}
-//     />
-//     <label className={`${s.label} ${s.radio}`} htmlFor={el.id}>
-//       {el.title}
-//     </label>
-//   </div>
-// ))}

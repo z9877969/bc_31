@@ -1,4 +1,3 @@
-## 1) controled input
-## 2) text, date, radio
-## 3) CRUD with collection
-## 4) filter by priority
+## 1) life cycles - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+## 2) interval
+## 3) local storage
