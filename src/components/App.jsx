@@ -1,32 +1,25 @@
+import SearchForm from "./SearchForm/SearchForm";
+import NewsGallery from "./NewsGallery/NewsGallery";
 import { Component } from "react";
-import Loader from "./Loader/Loader";
-import Modal from "./Modal/Modal";
-import TodoListItem from "./TodoListItem/TodoListItem";
-import TodoPage from "./TodoPage/TodoPage";
+// import Modal from "./Modal/Modal";
 
 class App extends Component {
   state = {
-    isOpen: false,
-    isLoading: false,
-    content: null, // comp
+    query: "",
   };
 
-  setContent = (content = null) => this.setState({ content });
+  setQuery = (query) => {
+    this.setState({ query });
+  };
 
-  toggleIsOpen = () => this.setState((prev) => ({ isOpen: !prev.isOpen }));
+  // handle
 
   render() {
-    const { content } = this.state;
     return (
       <>
-        <button type="button" onClick={this.toggleIsOpen}>
-          Click
-        </button>
-        <TodoPage isOpen={this.state.isOpen} setContent={this.setContent} />
-        {this.state.isLoading && <Loader />}
-        {this.state.content && (
-          <Modal toggleIsOpen={this.setContent}>{content}</Modal>
-        )}
+        <SearchForm setQuery={this.setQuery} />
+        <NewsGallery query={this.state.query} />
+        {/* <Modal /> */}
       </>
     );
   }

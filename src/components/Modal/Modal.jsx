@@ -1,30 +1,21 @@
-import { Component } from "react";
-import ModalWrapper from "../ModalWrapper/ModalWrapper";
+import s from "./Modal.module.scss";
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleCloseByEsc);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleCloseByEsc);
-  }
-
-  handleCloseByEsc = (e) => {
-    if (e.code === "Escape") {
-      this.props.toggleIsOpen();
-    }
-  };
-
-  handleBackdropClick = (e) =>
-    e.target === e.currentTarget && this.props.toggleIsOpen();
-
-  render() {
-    const { children } = this.props;
-    return (
-      <ModalWrapper onClick={this.handleBackdropClick}>{children}</ModalWrapper>
-    );
-  }
-}
+const Modal = () => {
+  return (
+    <div className={s.backdrop}>
+      <h1 className={s.title}>
+        <a
+          href={
+            "https://www.wired.com/story/kazakhstan-cryptocurrency-mining-unrest-energy"
+          }
+          target="_blank"
+          rel="noreferrer"
+        >
+          {"As Kazakhstan Descends into Chaos, Crypto Miners Are at a Loss"}
+        </a>
+      </h1>
+    </div>
+  );
+};
 
 export default Modal;

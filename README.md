@@ -1,3 +1,1 @@
-## 1) life cycles - https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
-## 2) interval
-## 3) local storage
+## 1) API - https://newsapi.org/docs/endpoints/everything
