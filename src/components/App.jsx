@@ -1,7 +1,6 @@
+import { Component } from "react";
 import SearchForm from "./SearchForm/SearchForm";
 import NewsGallery from "./NewsGallery/NewsGallery";
-import { Component } from "react";
-// import Modal from "./Modal/Modal";
 
 class App extends Component {
   state = {
@@ -19,7 +18,6 @@ class App extends Component {
       <>
         <SearchForm setQuery={this.setQuery} />
         <NewsGallery query={this.state.query} />
-        {/* <Modal /> */}
       </>
     );
   }
