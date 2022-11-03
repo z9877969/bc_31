@@ -1,68 +1,72 @@
-import { Component } from "react";
+import { useToggle, useList } from "react-use";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
-import { todo } from "../../data/todo";
+import { todo as todoData } from "../../data/todo";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-class TodoPage extends Component {
-  state = {
-    todo: todo,
-    filter: "all",
+const TodoPage = () => {
+  // const [todo, setTodo] = useLocalStorage("todo", todoData);
+  const [todo, { filter: filterFn, push }] = useList(todoData);
+  const [filter, setFilter] = useLocalStorage("filter", "all");
+  const [isLoading, setIsLoading] = useToggle(false);
+
+  const addTodo = (newTodo) => {
+    // setTodo((prevTodo) => [...prevTodo, newTodo]);
+    push(newTodo)
   };
 
-  addTodo = (newTodo) => {
-    this.setState((prev) => ({ todo: [...prev.todo, newTodo] }));
+  const removeTodo = (id) => {
+    // setTodo((prevTodo) => prevTodo.filter((el) => el.id !== id));
   };
 
-  removeTodo = (id) => {
-    this.setState((prev) => ({ todo: prev.todo.filter((el) => el.id !== id) }));
+  const updateStatus = (id) => {
+    // setTodo((prev) =>
+    //   prev.map((el) => (el.id !== id ? el : { ...el, isDone: !el.isDone }))
+    // );
   };
 
-  updateStatus = (id) => {
-    console.log(id);
-    this.setState((prev) => ({
-      todo: prev.todo.map((el) =>
-        el.id !== id ? el : { ...el, isDone: !el.isDone }
-      ),
-    }));
+  const handleChange = (e) => {
+    setFilter(e.target.value);
   };
 
-  handleChange = (e) => {
-    const { value } = e.target;
-    this.setState({ filter: value });
-  };
-
-  filterTodo = () => {
-    const { filter, todo } = this.state;
+  const getFilteredTodo = () => {
     if (filter === "all") return todo;
-    const filteredTodo = todo.filter((el) => el.priority === filter);
-    return filteredTodo;
+    return todo.filter((el) => el.priority === filter);
   };
 
-  render() {
-    const filteredTodo = this.filterTodo();
-    return (
-      <>
-        <ToDoForm addTodo={this.addTodo} />
-        <select
-          name="filter"
-          value={this.state.filter}
-          onChange={this.handleChange}
-        >
-          <option value="all">All</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-        {filteredTodo.length > 0 && (
-          <ToDoList
-            todo={filteredTodo}
-            updateStatus={this.updateStatus}
-            removeTodo={this.removeTodo}
-          />
-        )}
-      </>
-    );
-  }
-}
+  const filteredTodo = getFilteredTodo();
+
+  // useEffect(() => {
+  //   localStorage.setItem("todo", JSON.stringify(todo));
+  // }, [todo]);
+
+  return (
+    <>
+      <ToDoForm addTodo={addTodo} />
+      {isLoading && <h1>Loading...</h1>}
+      <button
+        type="button"
+        onClick={() => {
+          setIsLoading();
+        }}
+      >
+        Toggle loading
+      </button>
+      <select name="filter" value={filter} onChange={handleChange}>
+        <option value="all">All</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      {filteredTodo.length > 0 && (
+        <ToDoList
+          todo={filteredTodo}
+          updateStatus={updateStatus}
+          removeTodo={removeTodo}
+        />
+      )}
+    </>
+  );
+};
 
 export default TodoPage;
