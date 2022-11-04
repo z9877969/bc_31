@@ -1,53 +1,62 @@
-import { useToggle, useList } from "react-use";
 import ToDoForm from "../TodoForm/TodoForm";
 import ToDoList from "../TodoList/TodoList";
-import { todo as todoData } from "../../data/todo";
+// import { todo as todoData } from "../../data/todo";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useTodo } from "../../hooks/useTodo";
+import { useContext } from "react";
+import { IsLoadingContext } from "../../context/IsLoadingContext";
 
 const TodoPage = () => {
   // const [todo, setTodo] = useLocalStorage("todo", todoData);
-  const [todo, { filter: filterFn, push }] = useList(todoData);
   const [filter, setFilter] = useLocalStorage("filter", "all");
-  const [isLoading, setIsLoading] = useToggle(false);
+  const { todo, addTodo, removeTodo, updateStatus } = useTodo(filter);
 
-  const addTodo = (newTodo) => {
-    // setTodo((prevTodo) => [...prevTodo, newTodo]);
-    push(newTodo)
-  };
+  const data = useContext(IsLoadingContext);
 
-  const removeTodo = (id) => {
-    // setTodo((prevTodo) => prevTodo.filter((el) => el.id !== id));
-  };
+  console.log(data);
 
-  const updateStatus = (id) => {
-    // setTodo((prev) =>
-    //   prev.map((el) => (el.id !== id ? el : { ...el, isDone: !el.isDone }))
-    // );
-  };
+  // винесли в хук useTodo
+  // const addTodo = useCallback(
+  //   (newTodo) => {
+  //     setTodo((prevTodo) => [...prevTodo, newTodo]);
+  //   },
+  //   [setTodo]
+  // );
+
+  // link - 1 -> link - 2
+  // const removeTodo = useCallback(
+  //   (id) => {
+  //     setTodo((prevTodo) => prevTodo.filter((el) => el.id !== id));
+  //   },
+  //   [setTodo]
+  // );
+
+  // const updateStatus = useCallback(
+  //   (id) => {
+  //     setTodo((prev) =>
+  //       prev.map((el) => (el.id !== id ? el : { ...el, isDone: !el.isDone }))
+  //     );
+  //   },
+  //   [setTodo]
+  // );
+
+  // const filteredTodo = useMemo(() => {
+  //   // console.log("inside useMemo");
+  //   if (filter === "all") return todo;
+  //   return todo.filter((el) => el.priority === filter);
+  // }, [filter, todo]);
 
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
 
-  const getFilteredTodo = () => {
-    if (filter === "all") return todo;
-    return todo.filter((el) => el.priority === filter);
-  };
-
-  const filteredTodo = getFilteredTodo();
-
-  // useEffect(() => {
-  //   localStorage.setItem("todo", JSON.stringify(todo));
-  // }, [todo]);
-
   return (
     <>
       <ToDoForm addTodo={addTodo} />
-      {isLoading && <h1>Loading...</h1>}
       <button
         type="button"
         onClick={() => {
-          setIsLoading();
+          data.setIsLoading();
         }}
       >
         Toggle loading
@@ -58,9 +67,9 @@ const TodoPage = () => {
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
-      {filteredTodo.length > 0 && (
+      {todo.length > 0 && (
         <ToDoList
-          todo={filteredTodo}
+          todo={todo}
           updateStatus={updateStatus}
           removeTodo={removeTodo}
         />
@@ -70,3 +79,11 @@ const TodoPage = () => {
 };
 
 export default TodoPage;
+
+// const mem = { uCb1: { value: "", fn: () => {} } };
+
+// const useCb = (fn, arrI) => {
+//   if (mem.uCb1 === JSON.stringify(arrI)) return mem.uCb1.fn;
+//   mem.uCb1 = { value: JSON.stringify(arrI), fn: fn };
+//   return fn;
+// };

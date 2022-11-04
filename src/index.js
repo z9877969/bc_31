@@ -4,6 +4,8 @@ import App from "./components/App";
 import { ThemeProvider } from "styled-components";
 import "modern-normalize/modern-normalize.css";
 import { GlobalStyle } from "./GlobalStyle";
+import ModalProvider from "./context/ModalContext";
+import BgColorProvider from "./context/BgColorContext";
 
 const theme = {
   colors: {
@@ -21,8 +23,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <App />
+    <ModalProvider>
+      <BgColorProvider>
+        <GlobalStyle />
+        <App />
+      </BgColorProvider>
+    </ModalProvider>
   </ThemeProvider>
   // </React.StrictMode>
 );
