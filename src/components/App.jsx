@@ -1,8 +1,7 @@
-import {Routes, Route, Link, NavLink, useParams, Outlet} from 'react-router-dom';
+import {Routes, Route, Outlet} from 'react-router-dom';
 import CounterPage from '../pages/CounterPage';
 import CountryNewsPage from '../pages/CountryNewsPage';
 import TodoPage from "../pages/TodoPage";
-import Counter from "./Counter/Counter";
 import CountryNews from './CountryNews/CountryNews';
 import Nav from './Nav/Nav';
 
