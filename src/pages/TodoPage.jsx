@@ -1,10 +1,10 @@
-import ToDoForm from "../TodoForm/TodoForm";
-import ToDoList from "../TodoList/TodoList";
+import ToDoForm from "../components/TodoForm/TodoForm";
+import ToDoList from "../components/TodoList/TodoList";
 // import { todo as todoData } from "../../data/todo";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useTodo } from "../../hooks/useTodo";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useTodo } from "../hooks/useTodo";
 import { useContext } from "react";
-import { IsLoadingContext } from "../../context/IsLoadingContext";
+import { IsLoadingContext } from "../context/IsLoadingContext";
 
 const TodoPage = () => {
   // const [todo, setTodo] = useLocalStorage("todo", todoData);

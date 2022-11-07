@@ -1,10 +1,7 @@
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import clsx from "clsx";
 import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
-import { IsLoadingContext } from "../../context/IsLoadingContext";
-import { ModalContext } from "../../context/ModalContext";
-import { useBgColorContext } from "../../context/BgColorContext";
 
 const TodoListItem = ({
   descr,
@@ -15,9 +12,6 @@ const TodoListItem = ({
   updateStatus,
   idx,
 }) => {
-  const data = useContext(IsLoadingContext);
-  const setModalComponent = useContext(ModalContext);
-  const value = useBgColorContext();
 
   const [timer, setTimer] = useState(0);
 
@@ -44,23 +38,6 @@ const TodoListItem = ({
 
   return (
     <li key={id} className={s.toDoItem} ref={itemElRef}>
-      {data.isLoading && <h1>Loading...</h1>}
-      <button
-        type="button"
-        onClick={() => {
-          setModalComponent(<h1>ListItemComponent</h1>);
-        }}
-      >
-        OpenModal
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          value.setColor("#" + idx + idx + "a" + idx);
-        }}
-      >
-        ChangeBgColor
-      </button>
       <p className={s.date}>{date}</p>
       <p className={s.date}>Timer - {timer}</p>
       <button type="button" onClick={startTimer}>
