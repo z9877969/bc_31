@@ -1,9 +1,7 @@
-import { memo, useContext } from "react";
+import { memo, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import s from "./TodoForm.module.scss";
-import { useState } from "react";
-import { ModalContext } from "../../context/ModalContext";
 
 const initialFormState = {
   date: moment().format("YYYY-MM-DD"),
@@ -12,7 +10,6 @@ const initialFormState = {
 };
 
 const TodoForm = ({ addTodo }) => {
-  const setModalComponent = useContext(ModalContext);
   const [form, setForm] = useState(initialFormState);
   const { date, descr, priority } = form;
 
@@ -25,8 +22,6 @@ const TodoForm = ({ addTodo }) => {
     e.preventDefault();
     addTodo({ ...form, isDone: false, id: uuidv4() });
   };
-
-  console.log("TodoForm");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -97,13 +92,6 @@ const TodoForm = ({ addTodo }) => {
       </div>
       <button className={s.submit} type="submit">
         Ok
-      </button>
-      <button
-        className={s.submit}
-        type="button"
-        onClick={() => setModalComponent(<TodoForm addTodo={addTodo} />)}
-      >
-        OpenModal
       </button>
     </form>
   );

@@ -7,24 +7,7 @@ import s from "./NewsList.module.scss";
 // instance
 
 class NewsList extends Component {
-  state = {
-    modalData: null,
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.news !== this.props.news) {
-      this.itemRef.current.scrollIntoView({
-        block: "start",
-        behavior: "smooth",
-      });
-    }
-  }
-
-  itemRef = createRef(null);
-
-  changeModalData = (modalData = null) => {
-    this.setState({ modalData });
-  };
+  
 
   render() {
     const { news } = this.props;

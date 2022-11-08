@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getTopNewsApi } from "../../utils/newsApi";
+import NewsList from "../NewsList/NewsList";
 
 const newsName = {
   us: "US",
@@ -37,15 +38,7 @@ const CountryNews = () => {
   return (
     <>
       <h2>{newsName[lang]} News</h2>
-      <ul>
-        {news.map((el) => (
-          <li>
-            <a href={el.url} target="_blank" rel="noopener noreferrer">
-              {el.title}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <NewsList news={news} />
     </>
   );
 };
