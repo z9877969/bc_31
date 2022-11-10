@@ -1,28 +1,27 @@
 import { memo } from "react";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import s from "./TodoList.module.scss";
+import { getTodo, getTodoFilter } from "../../redux/todo/todoSelectors";
 
-const TodoList = ({ todo, removeTodo, updateStatus }) => {
-  console.log("TodoList");
+const TodoList = () => {
+  const todo = useSelector(getTodo);
+  const filter = useSelector(getTodoFilter);
+
+  const filterTodo = () => {
+    if (filter === "all") return todo;
+    return todo.filter((el) => el.priority === filter);
+  };
+
+  const filteredTodo = filterTodo();
 
   return (
     <ul className={s.container}>
-      {todo.map((item, idx) => (
-        <TodoListItem
-          key={item.id}
-          {...item}
-          idx={idx}
-          removeTodo={removeTodo}
-          updateStatus={updateStatus}
-        />
+      {filteredTodo.map((item) => (
+        <TodoListItem key={item.id} {...item} />
       ))}
     </ul>
   );
-};
-
-TodoList.propTypes = {
-  todo: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default memo(TodoList);

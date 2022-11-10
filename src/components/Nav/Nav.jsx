@@ -1,24 +1,18 @@
-// import {NavLink} from 'react-router-dom';
-import { useLocation } from "react-router-dom";
 import { NavItem } from "./Nav.styled";
 
-const Nav = () => {
-  const location = useLocation();
+const wrapperStyle = {
+  display: "flex",
+  gap: "25px",
+  justifyContent: "center",
+  marginBottom: "20px",
+};
 
-  console.log("location :>> ", location);
+const Nav = () => {
   return (
-    <div style={{ display: "flex", gap: "25px", justifyContent: "center" }}>
-      {/* {pathname: "/", search: "", hash: "", state: null} */}
+    <div style={wrapperStyle}>
       <NavItem to="/">Home</NavItem>
-      {/* {pathname: "/counter", search: "", hash: "", state: null} */}
       <NavItem to="/counter">Counter</NavItem>
-      {/* {pathname: "/todo", search: "", hash: "", state: null} */}
       <NavItem to="/todo">Todo</NavItem>
-      {/* {pathname: "/country-news", search: "", hash: "", state: "curentLocation"} */}
-      <NavItem to="/country-news" state={location}>
-        CountryNews
-      </NavItem>
-      <NavItem to="/search-news">SearchNews</NavItem>
     </div>
   );
 };

@@ -1,6 +1,8 @@
-import { memo, useState} from "react";
+import { memo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../redux/todo/todoActions";
 import s from "./TodoForm.module.scss";
 
 const initialFormState = {
@@ -9,7 +11,9 @@ const initialFormState = {
   priority: "",
 };
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState(initialFormState);
   const { date, descr, priority } = form;
 
@@ -20,8 +24,10 @@ const TodoForm = ({ addTodo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo({ ...form, isDone: false, id: uuidv4() });
+    dispatch(addTodo({ ...form, isDone: false, id: uuidv4() })); // {}
   };
+
+  console.log("FORM");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -97,4 +103,4 @@ const TodoForm = ({ addTodo }) => {
   );
 };
 
-export default memo(TodoForm);
+export default TodoForm;

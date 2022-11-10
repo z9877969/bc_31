@@ -1,11 +1,13 @@
+import { useSelector } from "react-redux";
+import TodoFilter from "../components/TodoFilter/TodoFilter";
 import ToDoForm from "../components/TodoForm/TodoForm";
 import ToDoList from "../components/TodoList/TodoList";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { useTodo } from "../hooks/useTodo";
+import { getIsTodoExist } from "../redux/todo/todoSelectors";
 
 const TodoPage = () => {
   const [filter, setFilter] = useLocalStorage("filter", "all");
-  const { todo, addTodo, removeTodo, updateStatus } = useTodo(filter);
+  const isTodoExist = useSelector(getIsTodoExist);
 
   const handleChange = (e) => {
     setFilter(e.target.value);
@@ -13,20 +15,9 @@ const TodoPage = () => {
 
   return (
     <>
-      <ToDoForm addTodo={addTodo} />
-      <select name="filter" value={filter} onChange={handleChange}>
-        <option value="all">All</option>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
-      {todo.length > 0 && (
-        <ToDoList
-          todo={todo}
-          updateStatus={updateStatus}
-          removeTodo={removeTodo}
-        />
-      )}
+      <ToDoForm />
+      <TodoFilter filter={filter} handleChange={handleChange} />
+      {isTodoExist && <ToDoList />}
     </>
   );
 };
