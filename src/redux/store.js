@@ -1,36 +1,46 @@
-import { createStore, combineReducers } from "redux";
-import { devToolsEnhancer } from "@redux-devtools/extension";
-import counterReducer from "./counter/counterReducer";
-import todoReducer from './todo/todoReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import counterReducer from "./counter/counterSlice";
+import todoReducer from "./todo/todoSlice";
 
-// const reducer = (state = { a: 21, b: true, c: [false] }, action) => {
-//   const newState = { ...state, a: 52 };
-//   return newState;
-// };
+const todoPersistConfig = {
+  key: "todo",
+  version: 1,
+  storage,
+  whitelist: ["items"]
+};
 
-// const reducerA = (state = 21, action) => {
-//   return 52;
-// };
-// const reducerB = (state = true, action) => {
-//   return state;
-// };
-// const reducerArr = (state = [], action) => {
-//   return state;
-// };
-// const reducerIsDone = (state = false, action) => {
-//   return state;
-// };
-// const reducerC = combineReducers({
-//   arr: reducerArr,
-//   isDone: reducerIsDone,
-// });
+const persistedTodoReducer = persistReducer(todoPersistConfig, todoReducer);
 
-const rootReducer = combineReducers({
-  //   a: reducerA,
-  //   b: reducerB,
-  //   c: reducerC,
-  counter: counterReducer,
-  todo: todoReducer,
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    todo: persistedTodoReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  // devTools: process.env.NODE_ENV !== "production",
+  // preloadedState: {
+  //   counter: 100,
+  //   todo: {
+  //     items: [],
+  //     filter: "all",
+  //   },
+  // },
 });
 
-export const store = createStore(rootReducer, devToolsEnhancer());
+export const persistor = persistStore(store);

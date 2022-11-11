@@ -2,7 +2,8 @@ import clsx from "clsx";
 import { useDispatch } from "react-redux";
 import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
-import { removeTodo, updateTodo } from "../../redux/todo/todoActions";
+// import { updateTodo } from "../../redux/todo/todoActions";
+import { remove, updateStatus } from "../../redux/todo/todoSlice";
 
 const TodoListItem = ({ descr, id, date, isDone }) => {
   const dispatch = useDispatch();
@@ -15,13 +16,13 @@ const TodoListItem = ({ descr, id, date, isDone }) => {
       <label className={s.status}>
         <input
           type="checkbox"
-          onChange={() => dispatch(updateTodo(id))}
+          onChange={() => dispatch(updateStatus(id))}
           name="status"
           checked={isDone}
         />
         Done
       </label>
-      <button onClick={() => dispatch(removeTodo(id))} className={s.todoBtn}>
+      <button onClick={() => dispatch(remove(id))} className={s.todoBtn}>
         <svg className={s.icon}>
           <use href={sprite + "#icon-trash"}></use>
         </svg>

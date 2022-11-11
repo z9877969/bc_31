@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  counterIncrement,
-  counterDecrement,
-  counterReset,
-} from "../../redux/counter/counterActions";
+// import {
+//   counterIncrement,
+//   counterDecrement,
+//   counterReset,
+// } from "../../redux/counter/counterActions";
+import { increment, decrement, reset } from "../../redux/counter/counterSlice";
 import s from "./Counter.module.css";
 
 const Counter = () => {
@@ -20,27 +21,27 @@ const Counter = () => {
       <div className={s.btnsWrapper}>
         <button
           className={s.btn}
-          onClick={() => dispatch(counterDecrement(10))}
+          onClick={() => dispatch(decrement(10))}
           type="button"
         >
           -10
         </button>
         <button
           className={s.btn}
-          onClick={() => dispatch(counterDecrement(20))}
+          onClick={() => dispatch(decrement(20))}
           type="button"
         >
           -20
         </button>
         <button
-          onClick={() => dispatch(counterReset())}
+          onClick={() => dispatch(reset())}
           className={s.btn}
           type="button"
         >
           0
         </button>
         <button
-          onClick={() => dispatch(counterIncrement(25))}
+          onClick={() => dispatch(increment(25))}
           className={s.btn}
           type="button"
         >

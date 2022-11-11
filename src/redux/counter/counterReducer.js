@@ -1,21 +1,16 @@
+import { createReducer } from "@reduxjs/toolkit";
 import {
-  COUNTER_DECREMENT,
-  COUNTER_INCREMENT,
-  COUNTER_RESET,
-} from "./counterConstants";
+  counterDecrement,
+  counterIncrement,
+  counterReset,
+} from "./counterActions";
 
-const counterReducer = (state = 50, action) => {
-  // { type: "counter/decrement", payload: 10 }
-  switch (action.type) {
-    case COUNTER_DECREMENT:
-      return state - action.payload;
-    case COUNTER_INCREMENT:
-      return state + action.payload;
-    case COUNTER_RESET:
-      return action.payload;
-    default:
-      return state;
-  }
-};
+const initialState = 25;
+
+const counterReducer = createReducer(initialState, {
+  [counterDecrement]: (state, action) => state - action.payload,
+  [counterIncrement]: (state, action) => state + action.payload,
+  [counterReset]: () => initialState,
+});
 
 export default counterReducer;

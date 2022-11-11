@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter } from "../../redux/todo/todoActions";
+// import { changeFilter } from "../../redux/todo/todoActions";
+import { changeFilter } from "../../redux/todo/todoSlice";
 import { getTodoFilter } from "../../redux/todo/todoSelectors";
 
 const TodoFilter = () => {
