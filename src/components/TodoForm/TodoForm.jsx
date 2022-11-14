@@ -1,15 +1,23 @@
 import { useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-// import { addTodo } from "../../redux/todo/todoActions";
-import { add } from "../../redux/todo/todoSlice";
 import s from "./TodoForm.module.scss";
+import { addTodo } from "../../redux/todo/todoOperations";
 
 const initialFormState = {
   date: moment().format("YYYY-MM-DD"),
   descr: "",
   priority: "",
 };
+
+// const submitFormOperation = (data) => {
+//   return (dispatch, getState) => {
+//     dispatch({ type: "submitPending" }); // stata.isLoading = true
+//     fetch()
+//       .then((data) => dispatch({ type: "submitFullfield", payload: data })) // state.todo = payload
+//       .catch((err) => dispatch({ type: "submitError", payload: err.message })); // state.error = payload
+//   };
+// };
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -24,7 +32,7 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(add(form)); // {}
+    dispatch(addTodo(form));
   };
 
   return (

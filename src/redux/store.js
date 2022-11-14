@@ -1,46 +1,42 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import counterReducer from "./counter/counterSlice";
 import todoReducer from "./todo/todoSlice";
+import logger from "redux-logger";
 
-const todoPersistConfig = {
-  key: "todo",
-  version: 1,
-  storage,
-  whitelist: ["items"]
+// const ownLogger1 = (store) => {
+//   return (next) => {
+//     return (action) => {
+//       console.group("action ", action.type);
+//       const prevState = store.getState();
+//       console.log("prevState ", prevState);
+//       console.log("action :>> ", action);
+//       next(action); // action -> reducer -> update state
+//       const nextState = store.getState();
+//       console.log("nextState", nextState);
+//       console.groupEnd();
+//     };
+//   };
+// };
+
+const thunk = (store) => (next) => (action) => {
+  if (typeof action === "function") {
+    action(store.dispatch, store.getState);
+    return;
+  }
+  next(action);
 };
-
-const persistedTodoReducer = persistReducer(todoPersistConfig, todoReducer);
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    todo: persistedTodoReducer,
+    todo: todoReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-  // devTools: process.env.NODE_ENV !== "production",
-  // preloadedState: {
-  //   counter: 100,
-  //   todo: {
-  //     items: [],
-  //     filter: "all",
-  //   },
-  // },
+  // middleware: [thunk],
+  middleware: (gDM) => gDM().concat(logger),
 });
 
-export const persistor = persistStore(store);
+// {
+//   store, next,
+
+//   thunk(store)(next)(action)
+// }

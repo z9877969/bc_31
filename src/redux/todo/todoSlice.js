@@ -1,42 +1,72 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
-import { todo } from "../../data/todo";
+
+const handlePending = (state) => {
+  state.isLoading = true;
+};
+const handleRejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
 
 const todoSlice = createSlice({
   name: "todo",
   initialState: {
-    items: todo,
+    items: [],
     filter: "all",
+    isLoading: false,
+    error: null, // error
   },
   reducers: {
-    add: {
-      reducer: (state, { payload }) => {
-        //   return { ...state, items: [...state.items, payload] };
-        state.items.push(payload);
-      },
-      prepare: (data) => {
-        console.log("data :>> ", data);
-        return {
-          payload: { ...data, isDone: false, id: uuidv4() },
-        };
-      },
+    addTodoPending: handlePending,
+    addTodoFullfield(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(action.payload);
     },
-    remove(state, { payload }) {
+    addTodoRejected: handleRejected,
+    getTodoPending: handlePending,
+    getTodoFullfield(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = payload;
+    },
+    getTodoRejected: handleRejected,
+    removeTodoPending: handlePending,
+    removeTodoFullfield(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
       state.items = state.items.filter((el) => el.id !== payload);
     },
-    updateStatus(state, { payload }) {
-      const itemIdx = state.items.findIndex((el) => el.id === payload);
+    removeTodoRejected: handleRejected,
+    updateTodoStatusPending: handlePending,
+    updateTodoStatusFullfield(state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      const itemIdx = state.items.findIndex((el) => el.id === payload.id);
       const item = state.items[itemIdx];
-      item.isDone = !item.isDone;
+      item.isDone = payload.isDone;
       state.items[itemIdx] = item;
     },
+    updateTodoStatusRejected: handleRejected,
     changeFilter(state, { payload }) {
       state.filter = payload;
     },
   },
 });
 
-console.log("todoSlice :>> ", todoSlice);
-
-export const { add, remove, updateStatus, changeFilter } = todoSlice.actions;
+export const {
+  changeFilter,
+  addTodoPending,
+  addTodoFullfield,
+  addTodoRejected,
+  getTodoPending,
+  getTodoFullfield,
+  getTodoRejected,
+  removeTodoPending,
+  removeTodoFullfield,
+  removeTodoRejected,
+  updateTodoStatusPending,
+  updateTodoStatusFullfield,
+  updateTodoStatusRejected,
+} = todoSlice.actions;
 export default todoSlice.reducer;
