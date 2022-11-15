@@ -10,15 +10,6 @@ const initialFormState = {
   priority: "",
 };
 
-// const submitFormOperation = (data) => {
-//   return (dispatch, getState) => {
-//     dispatch({ type: "submitPending" }); // stata.isLoading = true
-//     fetch()
-//       .then((data) => dispatch({ type: "submitFullfield", payload: data })) // state.todo = payload
-//       .catch((err) => dispatch({ type: "submitError", payload: err.message })); // state.error = payload
-//   };
-// };
-
 const TodoForm = () => {
   const dispatch = useDispatch();
 

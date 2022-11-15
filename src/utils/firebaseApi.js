@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// https://[PROJECT_ID].firebaseio.com/message_list.json
 axios.defaults.baseURL = "https://bc-31-5d787-default-rtdb.firebaseio.com";
 
 export const addTodoApi = (form) => {
@@ -29,5 +28,3 @@ export const updateTodoStatusApi = (id, status) => {
     .patch(`/todo/${id}.json`, { isDone: !status })
     .then((res) => ({ ...res.data, id }));
 };
-
-// {key1: {...data1}, key2: {...data2}} -> [{id: key1, ...data1}, {id: key2, ...data2}]

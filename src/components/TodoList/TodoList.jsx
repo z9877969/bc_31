@@ -2,25 +2,30 @@ import { memo } from "react";
 import { useSelector } from "react-redux";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import s from "./TodoList.module.scss";
-import { getTodo, getTodoFilter } from "../../redux/todo/todoSelectors";
+import {
+  getFilteredTodo,
+  getTodo,
+  getTodoFilter,
+} from "../../redux/todo/todoSelectors";
+import { useState } from "react";
 
-const TodoList = () => {
-  const todo = useSelector(getTodo);
-  const filter = useSelector(getTodoFilter);
-
-  const filterTodo = () => {
-    if (filter === "all") return todo;
-    return todo.filter((el) => el.priority === filter);
-  };
-
-  const filteredTodo = filterTodo();
-
+const List = ({ items }) => {
   return (
     <ul className={s.container}>
-      {filteredTodo.map((item) => (
+      {items.map((item) => (
         <TodoListItem key={item.id} {...item} />
       ))}
     </ul>
+  );
+};
+
+const TodoList = () => {
+  const filteredTodo = useSelector(getFilteredTodo); // array
+
+  return (
+    <>
+      <List items={filteredTodo} />;
+    </>
   );
 };
 

@@ -1,11 +1,8 @@
 import clsx from "clsx";
 import { useDispatch } from "react-redux";
-import { updateStatus } from "../../redux/todo/todoSlice";
-import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
 import { removeTodo, updateStatusTodo } from "../../redux/todo/todoOperations";
-
-
+import s from "../TodoList/TodoList.module.scss";
 
 const TodoListItem = ({ descr, id, date, isDone }) => {
   const dispatch = useDispatch();
@@ -18,9 +15,7 @@ const TodoListItem = ({ descr, id, date, isDone }) => {
       <label className={s.status}>
         <input
           type="checkbox"
-          onChange={() =>
-            dispatch(updateStatusTodo(id, isDone))
-          }
+          onChange={() => dispatch(updateStatusTodo({ id, status: isDone }))}
           name="status"
           checked={isDone}
         />

@@ -11,21 +11,21 @@ const TodoPage = () => {
   const dispatch = useDispatch();
 
   const [filter, setFilter] = useLocalStorage("filter", "all");
-  const isTodoExist = useSelector(getIsTodoExist);
+  // const isTodoExist = useSelector(getIsTodoExist);
 
   const handleChange = (e) => {
     setFilter(e.target.value);
   };
 
   useEffect(() => {
-    !isTodoExist && dispatch(getTodo());
-  }, [dispatch, isTodoExist]);
+    dispatch(getTodo());
+  }, [dispatch]);
 
   return (
     <>
       <ToDoForm />
       <TodoFilter filter={filter} handleChange={handleChange} />
-      {isTodoExist && <ToDoList />}
+      <ToDoList />
     </>
   );
 };
