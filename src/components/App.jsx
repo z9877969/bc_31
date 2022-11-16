@@ -1,22 +1,14 @@
-import { lazy } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import MainLayout from "./MainLayout/MainLayout";
-
-const CounterPage = lazy(() => import("../pages/CounterPage"));
-const TodoPage = lazy(() => import("../pages/TodoPage"));
+import { Navigate, Route, Routes } from "react-router-dom";
+import HistoryPage from "../pages/HistoryPage";
+import MainPage from "../pages/MainPage";
 
 const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<h1>Home Page</h1>} />
-          <Route path="/counter" element={<CounterPage />} />
-          <Route path="/todo" element={<TodoPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/transaction/*" element={<MainPage />} />
+      <Route path="/history/:transType" element={<HistoryPage />} />
+      <Route path="*" element={<Navigate to={"/transaction"} />} />
+    </Routes>
   );
 };
 

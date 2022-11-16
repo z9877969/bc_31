@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./counter/counterSlice";
-import todoReducer from "./todo/todoSlice";
-import lang from "./lang/langSlice";
+import transactions from "../redux/transactions/transactionsSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    todo: todoReducer,
-    lang,
+    transactions,
   },
 });

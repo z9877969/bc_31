@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  // margin-left: 1rem;
+  align-items: center;
+}
+
+.btnGoback {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 1rem;
+  display: flex;
+  border: none;
+  background: none;
+}
+
+.btnGoback svg {
+  width: 100%;
+  height: 100%;
+}

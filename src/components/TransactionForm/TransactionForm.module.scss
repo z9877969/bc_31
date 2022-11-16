@@ -1,0 +1,46 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid darkgray;
+}
+
+.label-title {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: rgb(147, 144, 144);
+}
+
+.label input {
+  border: none;
+  font-size: 1.2rem;
+  background: none;
+  color: rgb(80, 78, 78);
+}
+
+.label input:focus {
+  outline: none;
+}
+
+.label input[type="button"] {
+  cursor: pointer;
+}
+
+.btn-form {
+  display: block;
+  width: 50%;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0.2rem;
+  background: rgb(42, 38, 38);
+  color: bisque;
+}
