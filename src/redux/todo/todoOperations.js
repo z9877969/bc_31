@@ -7,20 +7,22 @@ import {
 } from "../../utils/firebaseApi";
 
 export const addTodo = createAsyncThunk("todo/add", async (data, thunkApi) => {
-  // dispatch({type: "todo/add/pending"})
+  const { idToken, localId } = thunkApi.getState().auth;
+
   try {
-    const todo = await addTodoApi(data);
-    return todo; // {type: "todo/add/fulfilled", payload: todo}
+    const todo = await addTodoApi({ form: data, localId, idToken });
+    return todo;
   } catch (error) {
-    return thunkApi.rejectWithValue(error.message); // {type: "todo/add/rejected", payload: error.message}
+    return thunkApi.rejectWithValue(error.message);
   }
-}); // {type: "todo/add/pending"} | {type: "todo/add/fulfilled"} | {type: "todo/add/rejected"}
+});
 
 export const getTodo = createAsyncThunk(
   "todo/get",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const { idToken, localId } = getState().auth;
     try {
-      const todo = await getTodoApi();
+      const todo = await getTodoApi({ localId, idToken });
       return todo;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -40,9 +42,10 @@ export const getTodo = createAsyncThunk(
 
 export const removeTodo = createAsyncThunk(
   "todo/remove",
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, getState }) => {
+    const { idToken, localId } = getState().auth;
     try {
-      await removeTodoApi(id);
+      await removeTodoApi({ id, localId, idToken });
       return id;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -50,18 +53,12 @@ export const removeTodo = createAsyncThunk(
   }
 );
 
-// export const updateStatusTodo = (id, status) => (dispatch) => {
-//   dispatch(updateTodoStatusPending());
-
-//   updateTodoStatusApi(id, status)
-//     .then((data) => dispatch(updateTodoStatusFullfield(data)))
-//     .catch((err) => dispatch(updateTodoStatusRejected(err.message)));
-// };
 export const updateStatusTodo = createAsyncThunk(
   "todo/updateStatus",
-  async ({ id, status }, { rejectWithValue }) => {
+  async ({ id, status }, { rejectWithValue, getState }) => {
+    const { idToken, localId } = getState().auth;
     try {
-      const data = await updateTodoStatusApi(id, status);
+      const data = await updateTodoStatusApi({ localId, id, status, idToken });
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

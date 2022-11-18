@@ -1,17 +1,35 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
+
+const API_KEY = "AIzaSyCYXh8tCc5qA2iY2UgmtOD9hnnfSGsYnr4";
+
+const url = {
+  AUTH: "https://identitytoolkit.googleapis.com/v1",
+  DB: "https://bc-31-5d787-default-rtdb.firebaseio.com",
+};
 
 axios.defaults.baseURL = "https://bc-31-5d787-default-rtdb.firebaseio.com";
+// "https://<DATABASE_NAME>.firebaseio.com/users/localId/todo.json?auth=idToken"
 
-export const addTodoApi = (form) => {
+export const addTodoApi = ({ form, localId, idToken }) => {
   form.isDone = false;
   return axios
-    .post("/todo.json", form)
+    .post(`/users/${localId}/todo.json`, form, {
+      baseURL: url.DB,
+      params: {
+        auth: idToken,
+      },
+    })
     .then((res) => ({ ...form, id: res.data.name }));
 };
 
-export const getTodoApi = () => {
+export const getTodoApi = ({ localId, idToken }) => {
   return axios
-    .get("/todo.json")
+    .get(`/users/${localId}/todo.json`, {
+      baseURL: url.DB,
+      params: {
+        auth: idToken,
+      },
+    })
     .then((res) =>
       res.data === null
         ? []
@@ -19,12 +37,88 @@ export const getTodoApi = () => {
     );
 };
 
-export const removeTodoApi = (id) => {
-  return axios.delete(`/todo/${id}.json`);
+export const removeTodoApi = ({ id, localId, idToken }) => {
+  return axios.delete(`/users/${localId}/todo/${id}.json`, {
+    baseURL: url.DB,
+    params: {
+      auth: idToken,
+    },
+  });
 };
 
-export const updateTodoStatusApi = (id, status) => {
+export const updateTodoStatusApi = ({ localId, id, status, idToken }) => {
   return axios
-    .patch(`/todo/${id}.json`, { isDone: !status })
+    .patch(
+      `/users/${localId}/todo/${id}.json`,
+      { isDone: !status },
+      {
+        baseURL: url.DB,
+        params: {
+          auth: idToken,
+        },
+      }
+    )
     .then((res) => ({ ...res.data, id }));
 };
+
+export const registerUserApi = (userData) => {
+  return axios
+    .post(
+      `/accounts:signUp`,
+      { ...userData, returnSecureToken: true },
+      {
+        baseURL: url.AUTH,
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data: { email, idToken, localId, refreshToken } }) => ({
+      email,
+      idToken,
+      localId,
+      refreshToken,
+    }));
+};
+// https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+export const loginUserApi = (userData) => {
+  return axios
+    .post(
+      "/accounts:signInWithPassword",
+      { ...userData, returnSecureToken: true },
+      {
+        baseURL: url.AUTH,
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data: { email, idToken, localId, refreshToken } }) => ({
+      email,
+      idToken,
+      localId,
+      refreshToken,
+    }));
+};
+
+// https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=[API_KEY]
+// {"idToken":"[FIREBASE_ID_TOKEN]"}
+export const getCurUserApi = (idToken) => {
+  return axios
+    .post(
+      "/accounts:lookup",
+      { idToken },
+      {
+        baseURL: url.AUTH,
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data }) => {
+      const { localId, email } = data.users[0];
+      return { localId, email };
+    });
+};
+
+// "https://<DATABASE_NAME>.firebaseio.com/users/ada/name.json?auth=<ID_TOKEN>"

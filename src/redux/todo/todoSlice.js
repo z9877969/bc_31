@@ -1,5 +1,6 @@
-import { createReducer, createSlice } from "@reduxjs/toolkit";
-import { increment } from "../counter/counterSlice";
+import { createSlice } from "@reduxjs/toolkit";
+import { logOut } from "../auth/authSlice";
+
 import {
   addTodo,
   getTodo,
@@ -20,23 +21,25 @@ const setActionsWithHandlers = (operation) => ({
   [operation.rejected]: handleRejected,
 });
 
+const iS = {
+  items: [],
+  filter: "all",
+  isLoading: false,
+  error: null, // error
+};
+
 const todoSlice = createSlice({
   name: "todo",
-  initialState: {
-    items: [],
-    filter: "all",
-    isLoading: false,
-    error: null, // error
-  },
+  initialState: iS,
   reducers: {
     changeFilter(state, { payload }) {
       state.filter = payload;
     },
   },
   extraReducers: {
+    [logOut]: () => iS,
     ...setActionsWithHandlers(addTodo),
-    [getTodo.pending]: handlePending,
-    [getTodo.rejected]: handleRejected,
+    ...setActionsWithHandlers(getTodo),
     [removeTodo.pending]: handlePending,
     [removeTodo.rejected]: handleRejected,
     [updateStatusTodo.pending]: handlePending,
