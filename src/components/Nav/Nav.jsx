@@ -13,6 +13,7 @@ const Nav = () => {
       <NavItem to="/">Home</NavItem>
       <NavItem to="/counter">Counter</NavItem>
       <NavItem to="/todo">Todo</NavItem>
+      <NavItem to="/tabs">Tabs</NavItem>
     </div>
   );
 };
