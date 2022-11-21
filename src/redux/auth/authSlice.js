@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurUser, loginUser, registerUser } from "./authOperations";
+import {
+  getCurUser,
+  loginUser,
+  refreshToken,
+  registerUser,
+} from "./authOperations";
 
 const initialState = {
   email: null,
@@ -33,6 +38,11 @@ const authSlice = createSlice({
     [loginUser.rejected]: handleRejected,
     [getCurUser.pending]: handlePending,
     [getCurUser.rejected]: handleRejected,
+    [refreshToken.pending]: handlePending,
+    [refreshToken.rejected]: (state, { payload }) => {
+      // handleRejected()
+      return initialState;
+    },
     [registerUser.fulfilled]: (state, { payload }) => {
       return {
         ...state,
@@ -57,6 +67,14 @@ const authSlice = createSlice({
         error: null,
       };
     },
+    [refreshToken.fulfilled]: (state, {payload}) => {
+      return {
+        ...state,
+        ...payload,
+        isLoading: false,
+        error: null,
+      };
+    }
   },
 });
 

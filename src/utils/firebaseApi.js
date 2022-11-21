@@ -5,6 +5,7 @@ const API_KEY = "AIzaSyCYXh8tCc5qA2iY2UgmtOD9hnnfSGsYnr4";
 const url = {
   AUTH: "https://identitytoolkit.googleapis.com/v1",
   DB: "https://bc-31-5d787-default-rtdb.firebaseio.com",
+  REFRESH: "https://securetoken.googleapis.com/v1",
 };
 
 axios.defaults.baseURL = "https://bc-31-5d787-default-rtdb.firebaseio.com";
@@ -121,4 +122,20 @@ export const getCurUserApi = (idToken) => {
     });
 };
 
-// "https://<DATABASE_NAME>.firebaseio.com/users/ada/name.json?auth=<ID_TOKEN>"
+export const refreshTokenApi = (refreshToken) => {
+  return axios
+    .post(
+      "/token",
+      { grant_type: "refresh_token", refresh_token: refreshToken },
+      {
+        baseURL: url.REFRESH,
+        params: {
+          key: API_KEY,
+        },
+      }
+    )
+    .then(({ data: { refresh_token, id_token } }) => ({
+      idToken: id_token,
+      refreshToken: refresh_token,
+    }));
+};

@@ -1,4 +1,5 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsAuth } from "../../redux/auth/authSelectors";
 import { logOut } from "../../redux/auth/authSlice";
 import { NavItem } from "./Nav.styled";
 
@@ -12,14 +13,25 @@ const wrapperStyle = {
 const Nav = () => {
   const dispatch = useDispatch();
 
+  const isAuth = useSelector(getIsAuth);
+
   return (
     <div style={wrapperStyle}>
       <NavItem to="/">Home</NavItem>
-      <NavItem to="/counter">Counter</NavItem>
-      <NavItem to="/todo">Todo</NavItem>
-      <button type="button" onClick={() => dispatch(logOut())}>
-        Logout
-      </button>
+      {isAuth ? (
+        <>
+          <NavItem to="/counter">Counter</NavItem>
+          <NavItem to="/todo">Todo</NavItem>
+          <button type="button" onClick={() => dispatch(logOut())}>
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <NavItem to="/login">Login</NavItem>
+          <NavItem to="/register">Register</NavItem>
+        </>
+      )}
     </div>
   );
 };

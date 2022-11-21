@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AuthForm = ({
@@ -27,7 +27,7 @@ const AuthForm = ({
       style={{ display: "flex", flexDirection: "column", width: "500px" }}
     >
       {options.map((el) => (
-        <label>
+        <label key={el.name}>
           {el.title}
           <input
             type={el.type}
@@ -48,4 +48,41 @@ const AuthForm = ({
   );
 };
 
+//  <form></form> // React.createElement("form") -> {tag: "form"}
+
+// const form = React.createElement(
+//   "form",
+//   {
+//     onSubmit: handleSubmit,
+//     style: { display: "flex", flexDirection: "column", width: "500px" },
+//   },
+//   options.map((el) =>
+//     React.createElement(
+//       "label",
+//       null,
+//       el.title,
+//       React.createElement("input", {
+//         ...el,
+//         value: form[el.name],
+//         onСhange: handleChange,
+//       })
+//     )
+//   ),
+//   React.createElement(
+//     "button",
+//     {
+//       style: { width: "150px" },
+//       type: "submit",
+//     },
+//     btnTitle
+//   ),
+//   <Link to={pathname}>{linkTitle}</Link>
+// );
+
 export default AuthForm;
+
+// {
+//   tag: "form",
+//   children: [],
+//   props: {}
+// }
