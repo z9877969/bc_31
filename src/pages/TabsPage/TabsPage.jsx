@@ -10,9 +10,9 @@ import { useMethod } from "../../components/App";
 const TabsPage = () => {
   const dispatch = useDispatch();
 
-  const method = useMethod(); // l-1 , l-1
+  // const method = useMethod(); // l-1 , l-1
 
-  console.log("method :>> ", method);
+  // console.log("method :>> ", method);
 
   const [isAddColumn, setIsAddColumn] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");

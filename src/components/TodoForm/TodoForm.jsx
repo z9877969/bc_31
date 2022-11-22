@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 // import { addTodo } from "../../redux/todo/todoActions";
@@ -106,4 +106,4 @@ const TodoForm = () => {
   );
 };
 
-export default TodoForm;
+export default memo(TodoForm); // props | state

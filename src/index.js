@@ -6,6 +6,7 @@ import App from "./components/App";
 import { store } from "./redux/store";
 import "./index.scss";
 import TodoProvider from "./context/TodoContext";
+import ReactReduxProvider from "./context/ReactReduxContext";
 
 console.log("store :>> ", store);
 
@@ -14,9 +15,11 @@ root.render(
   // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
-      <TodoProvider>
-        <App />
-      </TodoProvider>
+      <ReactReduxProvider store={store}>
+        <TodoProvider>
+          <App />
+        </TodoProvider>
+      </ReactReduxProvider>
     </BrowserRouter>
   </Provider>
   // </React.StrictMode>

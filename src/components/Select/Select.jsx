@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import ReactSelect from "react-select";
 import sprite from "../../assets/icons/sprite.svg";
-import { OptionsContext, useData, useDataContext, useMethod, useMethodContext } from "../App";
+// import { OptionsContext, useData, useDataContext, useMethod, useMethodContext } from "../App";
 
 const Label = ({ title }) => (
   <>
@@ -23,16 +23,16 @@ const options = [
 ];
 
 const Select = () => {
- const method = useMethod();
- const data = useData();
+//  const method = useMethod();
+//  const data = useData();
 
   // const { data, method } = useContext(OptionsContext); // { data: option, method }
 
   return (
     <ReactSelect
       options={options}
-      value={data}
-      onChange={(option) => method(option)}
+      // value={data}
+      // onChange={(option) => method(option)}
     />
   );
 };
