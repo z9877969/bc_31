@@ -2,12 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import s from "./TabsPage.module.css";
 import { addColumn } from "../../redux/tabs/tabsOperations";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { getColumns } from "../../redux/tabs/tabsSelectors";
+import { useMethod } from "../../components/App";
 
 const TabsPage = () => {
   const dispatch = useDispatch();
+
+  const method = useMethod(); // l-1 , l-1
+
+  console.log("method :>> ", method);
 
   const [isAddColumn, setIsAddColumn] = useState(false);
   const [columnTitle, setColumnTitle] = useState("");
@@ -22,6 +27,8 @@ const TabsPage = () => {
   useEffect(() => {
     setIsAddColumn((prev) => (prev ? !prev : prev));
   }, [tasksColumns]);
+
+  console.log("TabsPage");
 
   return (
     <div className={s.wrapper}>

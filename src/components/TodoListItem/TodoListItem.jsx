@@ -4,9 +4,11 @@ import s from "../TodoList/TodoList.module.scss";
 import sprite from "../../assets/icons/sprite.svg";
 // import { updateTodo } from "../../redux/todo/todoActions";
 import { remove, updateStatus } from "../../redux/todo/todoSlice";
+import { useRemoveTodo } from "../../context/TodoContext";
 
 const TodoListItem = ({ descr, id, date, isDone }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const removeTodo = useRemoveTodo();
 
   return (
     <li className={s.toDoItem}>
@@ -16,13 +18,13 @@ const TodoListItem = ({ descr, id, date, isDone }) => {
       <label className={s.status}>
         <input
           type="checkbox"
-          onChange={() => dispatch(updateStatus(id))}
+          // onChange={() => dispatch(updateStatus(id))}
           name="status"
           checked={isDone}
         />
         Done
       </label>
-      <button onClick={() => dispatch(remove(id))} className={s.todoBtn}>
+      <button onClick={() => removeTodo(id)} className={s.todoBtn}>
         <svg className={s.icon}>
           <use href={sprite + "#icon-trash"}></use>
         </svg>

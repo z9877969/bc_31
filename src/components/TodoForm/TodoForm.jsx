@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 // import { addTodo } from "../../redux/todo/todoActions";
 import { add } from "../../redux/todo/todoSlice";
 import s from "./TodoForm.module.scss";
+import { useAddTodo } from "../../context/TodoContext";
 
 const initialFormState = {
   date: moment().format("YYYY-MM-DD"),
@@ -12,7 +13,8 @@ const initialFormState = {
 };
 
 const TodoForm = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const addTodo = useAddTodo();
 
   const [form, setForm] = useState(initialFormState);
   const { date, descr, priority } = form;
@@ -24,8 +26,11 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(add(form)); // {}
+    // dispatch(add(form)); // {}
+    addTodo({ ...form, id: String(Date.now()) });
   };
+
+  console.log("TodoForm");
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
